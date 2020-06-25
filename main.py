@@ -7,7 +7,7 @@ users_repo = UsersRepository()  # TODO: add pymongo
 telebot_service = TelebotService(bot)
 users_service = UsersService(users_repo, telebot_service)
 
-import handlers
+from handlers import *
 
 
 def start_polling():
