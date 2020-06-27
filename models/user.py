@@ -6,9 +6,10 @@ import typing
 class Roles:
     Admin = "admin"
     User = "user"
+    Owner = "owner"
 
 
-Role = typing.Union[Roles.User, Roles.Admin]
+Role = typing.Union[Roles.User, Roles.Admin, Roles.Owner]
 
 
 @dataclass
