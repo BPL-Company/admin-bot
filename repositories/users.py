@@ -56,7 +56,7 @@ class UsersRepository:
         return user
 
     def get_users_by_role(self, role: Role) -> typing.List[User]:
-        users_dicts = self.db.find({'role': role})
+        users_dicts = self.db.users.find({'role': role})
         users = self.serialize_users(users_dicts)
         return users
 
