@@ -50,7 +50,7 @@ def handle_kick_command(message: Message):
     kick_user(
         reason,
         message,
-        telebot_service.restrict_member,
-        messages["successful mute by reason"],
-        messages["successful mute"]
+        users_service.kick_user,
+        messages["successful kick by reason"],
+        messages["successful kick"]
     )()
