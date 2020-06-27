@@ -14,6 +14,5 @@ Role = typing.Union[Roles.User, Roles.Admin, Roles.Owner]
 
 @dataclass
 class User:
-    username: str
     id: int
-    role: Role
+    role: str

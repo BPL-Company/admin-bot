@@ -18,7 +18,7 @@ def banmute_user(
     (time, unit, reason) = options
 
     time_to_ban = calculate_time_to_ban(time, unit)
-    res = on_ban(m.from_user.id, m.reply_to_message.from_user.id, m.chat.id, time_to_ban)
+    res = on_ban(m.from_user.id, m.reply_to_message.from_user.id, m.chat.id, m.date + time_to_ban)
     if res["res"] == "err":
         return lambda: telebot_service.send_message(m.chat.id, messages[res["reason"]])
     else:

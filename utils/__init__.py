@@ -2,7 +2,7 @@
 import typing
 
 
-def parse_time_to_ban(args: str) -> typing.Optional[typing.Tuple[int, str, str]]:
+def parse_time_to_ban(args: str) -> typing.Optional[typing.Tuple[int, str]]:
     time = ""
     unit = ""
     it = iter(args)
@@ -27,9 +27,7 @@ def parse_time_to_ban(args: str) -> typing.Optional[typing.Tuple[int, str, str]]
     if unit not in ["s", "m", "h", "d"]:
         return None
 
-    reason = str(it)
-
-    return int(time), unit, reason
+    return int(time), unit
 
 
 def calculate_time_to_ban(time: int, unit: str) -> int:
@@ -43,10 +41,10 @@ def calculate_time_to_ban(time: int, unit: str) -> int:
         return time * 3600 * 24
 
 
-def parse_and_calc_time_to_ban(args: str) -> typing.Optional[typing.Tuple[int, str]]:
+def parse_and_calc_time_to_ban(args: str) -> typing.Optional[int]:
     res = parse_time_to_ban(args)
     if res is None:
         return None
 
-    (time, unit, reason) = res
-    return calculate_time_to_ban(time, unit), reason
+    (time, unit) = res
+    return calculate_time_to_ban(time, unit)
