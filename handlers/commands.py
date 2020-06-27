@@ -4,7 +4,7 @@ from .actions import banmute_user
 from .validators import validate_usage_of_banmute_command
 
 from bot import bot
-from main import telebot_service
+from startup import telebot_service, users_service
 from views import messages
 
 
@@ -18,7 +18,7 @@ def handle_ban_command(message: Message):
     banmute_user(
         res,
         message,
-        telebot_service.ban_member,
+        users_service.ban_member,
         messages["successful ban by reason"],
         messages["successful ban"]
     )()
@@ -34,7 +34,7 @@ def handle_mute_command(message: Message):
     banmute_user(
         res,
         message,
-        telebot_service.restrict_member,
+        users_service.mute_user,
         messages["successful mute by reason"],
         messages["successful mute"]
     )()

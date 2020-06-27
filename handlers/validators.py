@@ -2,7 +2,7 @@ import typing
 from telebot.types import Message
 
 from utils import parse_time_to_ban
-from main import telebot_service
+from startup import telebot_service
 from views import messages
 
 

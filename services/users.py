@@ -13,3 +13,10 @@ class UsersService:
             return {'res': 'ok'}
         else:
             return {'res': 'err', 'reason': 'not an admin'}
+
+    def mute_user(self, from_user: int, to_user: int, chat_id, time: int):
+        if self.users_repository.is_user_admin(from_user):
+            self.telebot_service.restrict_member(to_user, chat_id, time)
+            return {'res': 'ok'}
+        else:
+            return {'res': 'err', 'reason': 'not an admin'}
