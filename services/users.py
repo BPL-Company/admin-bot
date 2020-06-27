@@ -20,3 +20,10 @@ class UsersService:
             return {'res': 'ok'}
         else:
             return {'res': 'err', 'reason': 'not an admin'}
+
+    def kick_user(self, from_user: int, to_user: int, chat_id):
+        if self.users_repository.is_user_admin(from_user):
+            self.telebot_service.kick_member(to_user, chat_id)
+            return {'res': 'ok'}
+        else:
+            return {'res': 'err', 'reason': 'not an admin'}

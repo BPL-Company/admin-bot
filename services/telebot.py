@@ -11,9 +11,8 @@ class TelebotService:
     def restrict_member(self, user_id: int, chat_id: int, time: int):
         self.bot.restrict_chat_member(chat_id, user_id, until_date=time)
 
+    def kick_member(self, user_id: int, chat_id: int):
+        self.bot.unban_chat_member(chat_id, user_id)
+
     def send_message(self, chat_id: int, text: str):
         self.bot.send_message(chat_id, text, parse_mode="HTML")
-
-    def is_user_admin(self, chat_id: int, user_id: int):
-        admins = self.bot.get_chat_administrators(chat_id)
-        return any(admin.user.id == user_id for admin in admins)

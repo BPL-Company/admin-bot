@@ -42,3 +42,33 @@ def banmute_user(
                 units[unit],
             )
         return lambda: telebot_service.send_message(m.chat.id, text)
+
+
+def kick_user(
+        reason: str,
+        m: Message,
+        on_kick: typing.Callable[[int, int, int], typing.Dict[str, str]],
+        message_when_reason_exists: str,
+        message_when_reason_does_not_exists: str,
+) -> typing.Callable[[], None]:
+
+    res = on_kick(m.from_user.id, m.reply_to_message.from_user.id, m.chat.id)
+    if res["res"] == "err":
+        return lambda: telebot_service.send_message(m.chat.id, messages[res["reason"]])
+    else:
+        if reason != "":
+            text = message_when_reason_exists.format(
+                m.from_user.id,
+                m.from_user.first_name,
+                m.reply_to_message.from_user.id,
+                m.reply_to_message.from_user.first_name,
+                reason,
+            )
+        else:
+            text = message_when_reason_does_not_exists.format(
+                m.from_user.id,
+                m.from_user.first_name,
+                m.reply_to_message.from_user.id,
+                m.reply_to_message.from_user.first_name,
+            )
+        return lambda: telebot_service.send_message(m.chat.id, text)

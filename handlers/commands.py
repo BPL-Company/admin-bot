@@ -1,7 +1,7 @@
 from telebot.types import Message
 
-from .actions import banmute_user
-from .validators import validate_usage_of_banmute_command
+from .actions import banmute_user, kick_user
+from .validators import validate_usage_of_banmute_command, validate_usage_of_kick_command
 
 from bot import bot
 from startup import telebot_service, users_service
@@ -42,13 +42,13 @@ def handle_mute_command(message: Message):
 
 @bot.message_handler(commands=["kick"], content_types=["text"])
 def handle_kick_command(message: Message):
-    res = validate_usage_of_banmute_command(message)()
+    reason = validate_usage_of_kick_command(message)()
 
-    if res is None:
+    if reason is None:
         return
 
-    banmute_user(
-        res,
+    kick_user(
+        reason,
         message,
         telebot_service.restrict_member,
         messages["successful mute by reason"],
