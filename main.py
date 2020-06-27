@@ -15,4 +15,5 @@ def start_polling():
     bot.polling(none_stop=True)
 
 
-start_polling()
+if __name__ == '__main__':
+    start_polling()
