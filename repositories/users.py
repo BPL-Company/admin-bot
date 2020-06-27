@@ -61,9 +61,7 @@ class UsersRepository:
         return users
 
     def serialize_user(self, user_dict: dict) -> User:
-        user: User = self.factory.load(user_dict, User)
-        user = self.factory.dump(user)
-        return user
+        return self.factory.load(user_dict, User)
 
     def serialize_users(self, users_dicts: list) -> typing.List[User]:
         return list(map(lambda user_dict: self.serialize_user(user_dict), users_dicts))
