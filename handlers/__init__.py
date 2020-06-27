@@ -9,7 +9,6 @@ from views.text_messages import units
 
 @bot.message_handler(commands=["ban"], content_types=["text"])
 def handle_ban_command(m: Message):
-    print(1)
     text: list = m.text.split(maxsplit=2)
     if len(text) == 1:
         telebot_service.send_message(m.chat.id, messages["wrong usage of command"])
