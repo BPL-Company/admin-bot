@@ -94,45 +94,32 @@ class UsersService:
             action = curt.action
             if action == "Помиловать":
                 self.users_repository.remove_warns(user_id)
-                self.telebot_service.send_message(
-                    state.message.chat.id,
-                    messages['have mercy'].format(user_id, "этого чувака")
-                )
+                return {'res': 'ok', 'state': state, 'action': 'have mercy'}
             elif action == "Бан на день":
                 self.telebot_service.ban_member(
                     user_id,
                     state.message.chat.id,
                     (datetime.datetime.now() + datetime.timedelta(1)).timestamp()
                 )
-                self.telebot_service.send_message(
-                    state.message.chat.id,
-                    messages['banned at time'].format(user_id, "Этот чувак", 1, units['d'])
-                )
+                return {'res': 'ok', 'state': state, 'action': 'ban', 'time': 1, 'unit': 'd'}
             elif action == "Бан на неделю":
                 self.telebot_service.ban_member(
                     user_id,
                     state.message.chat.id,
                     (datetime.datetime.now() + datetime.timedelta(7)).timestamp()
                 )
-                self.telebot_service.send_message(
-                    state.message.chat.id,
-                    messages['banned at time'].format(user_id, "Этот чувак", 7, units['d'])
-                )
+                return {'res': 'ok', 'state': state, 'action': 'ban', 'time': 7, 'unit': 'd'}
             elif action == "Бан навсегда!":
                 self.telebot_service.ban_member(
                     user_id,
                     state.message.chat.id,
                     datetime.datetime.now().timestamp()
                 )
-                self.telebot_service.send_message(
-                    state.message.chat.id,
-                    messages['banned forever'].format(user_id, "Этот чувак", "навсегда", "")
-                )
+                return {'res': 'ok', 'state': state, 'action': 'ban', 'time': 'forever'}
             elif action == "Отобрать козу.":
                 pass
             else:
                 pass
-            return {'res': 'ok'}
 
     def administrator_not_confirm_curt(self, user_id: int, admin_id: int):
         states = list(filter(lambda state: state.user_id == user_id, self.states_poll_curt))
