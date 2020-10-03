@@ -2,8 +2,8 @@ import datetime
 from dataclasses import dataclass
 
 import models
-from models.user import Warn
-from repositories import UsersRepository
+from models import Warn, Curt
+from repositories import UsersRepository, CurtsRepository
 from services import TelebotService
 import config
 from services.polls import PollState, PollService
@@ -13,11 +13,18 @@ from views.text_messages import units
 
 
 class UsersService:
-    def __init__(self, users_repository: UsersRepository, telebot_service: TelebotService, poll_service: PollService):
+    def __init__(
+        self, 
+        users_repository: UsersRepository, 
+        telebot_service: TelebotService, 
+        poll_service: PollService,
+        curts_repository: CurtsRepository
+    ):
         self.users_repository = users_repository
         self.telebot_service = telebot_service
         self.poll_service = poll_service
         self.states_poll_curt = []
+        self.curts_repository = curts_repository
 
     def ban_user(self, from_user: int, to_user: int, chat_id, time: int):
         if self.users_repository.is_user_admin(from_user):
@@ -92,6 +99,14 @@ class UsersService:
             curt: StatePollCurt = states[0]
             state = curt.poll_state
             action = curt.action
+            curtDTO = Curt(
+                curt.user_id, 
+                datetime.datetime.now(), 
+                curt.message_id,
+                curt.reason,
+                action
+                )
+            self.curts_repository.add_curt(curtDTO)
             if action == "Помиловать":
                 self.users_repository.remove_warns(user_id)
                 return {'res': 'ok', 'state': state, 'action': 'have mercy'}
