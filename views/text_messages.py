@@ -10,6 +10,11 @@ messages = {
     "successful kick": "<a href='tg://user?id={}'>{}</a> кикнул <a href='tg://user?id={}'>{}</a>!",
     "successful kick by reason":
         "<a href='tg://user?id={}'>{}</a> кикнул <a href='tg://user?id={}'>{}</a> по причине {}!",
+
+    'greeting': 'Добро пожаловать к нашему шалашу',
+    'antispam_too_far': 'Вы не можете туда дойти! Слишком далеко!',
+    'antispam_goat': 'Вы получили козу!',
+    'antispam': 'Двигайтесь с помощью клавиатуры и поймайте КОЗУ!'
 }
 
 units = {

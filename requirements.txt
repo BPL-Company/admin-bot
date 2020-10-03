@@ -2,3 +2,4 @@ pytelegrambotapi
 pymongo
 dnspython
 dataclass_factory
+sdtg
