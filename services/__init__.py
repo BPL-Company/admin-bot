@@ -4,3 +4,4 @@
 
 from .telebot import TelebotService
 from .users import UsersService
+from .greeter import Greeter
