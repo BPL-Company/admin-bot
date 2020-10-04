@@ -11,6 +11,8 @@ from utils import calculate_time_to_ban
 from views import messages
 from views.text_messages import units
 from views.warn_views import view_warn_limit
+from views.users import view_show_user
+from models import User
 
 
 def banmute_user(
@@ -147,3 +149,8 @@ def clear_warns(
             m.reply_to_message.from_user.id,
             m.reply_to_message.from_user.first_name
         ))
+
+def show_user(m: Message):
+    user: User = users_repo.get_user(m.from_user.id)
+    text = view_show_user(user)
+    telebot_service.send_message(m.chat.id, text)

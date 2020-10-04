@@ -1,3 +1,5 @@
+from models.user import Roles
+
 messages = {
     "wrong usage of command": "Неправильное использование команды!",
     "not an admin": "Вы не администратор!",
@@ -24,7 +26,11 @@ messages = {
                                "}'>{}</a> ",
     "no curt on that users": "Нет опросов с этим пользователем",
     "administrator not confirm curt": "<a href='tg://user?id={}'>Администратор</a> не подтвердил выбранную меру "
-                                      "пресечения \"{}\"! "
+                                      "пресечения \"{}\"! ",
+    "show user": 
+        "id: {}\n"
+        "Роль: {}\n"
+        "Варны: {}\n"
 }
 
 units = {
@@ -32,4 +38,10 @@ units = {
     "m": "минут",
     "s": "секунд",
     "d": "дней",
+}
+
+roles = {
+    Roles.Owner: "Владелец",
+    Roles.Admin: "Админ",
+    Roles.User: "Пользователь"
 }
