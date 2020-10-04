@@ -6,7 +6,7 @@ from telebot.types import Message
 import config
 from services.polls import PollState
 from services.users import StatePollCurt
-from startup import telebot_service, users_service, poll_service
+from startup import telebot_service, users_service, poll_service, users_repo
 from utils import calculate_time_to_ban
 from views import messages
 from views.text_messages import units
@@ -19,13 +19,13 @@ def banmute_user(
         on_ban: typing.Callable[[int, int, int, int], typing.Dict[str, str]],
         message_when_reason_exists: str,
         message_when_reason_does_not_exists: str,
-) -> typing.Callable[[], None]:
+):
     (time, unit, reason) = options
 
     time_to_ban = calculate_time_to_ban(time, unit)
     res = on_ban(m.from_user.id, m.reply_to_message.from_user.id, m.chat.id, m.date + time_to_ban)
     if res["res"] == "err":
-        return lambda: telebot_service.send_message(m.chat.id, messages[res["reason"]])
+        telebot_service.send_message(m.chat.id, messages[res["reason"]])
     else:
         if reason != "":
             text = message_when_reason_exists.format(
@@ -46,7 +46,7 @@ def banmute_user(
                 time,
                 units[unit],
             )
-        return lambda: telebot_service.send_message(m.chat.id, text)
+        telebot_service.send_message(m.chat.id, text)
 
 
 def kick_user(
@@ -55,11 +55,11 @@ def kick_user(
         on_kick: typing.Callable[[int, int, int], typing.Dict[str, str]],
         message_when_reason_exists: str,
         message_when_reason_does_not_exists: str,
-) -> typing.Callable[[], None]:
+):
 
     res = on_kick(m.from_user.id, m.reply_to_message.from_user.id, m.chat.id)
     if res["res"] == "err":
-        return lambda: telebot_service.send_message(m.chat.id, messages[res["reason"]])
+        telebot_service.send_message(m.chat.id, messages[res["reason"]])
     else:
         if reason != "":
             text = message_when_reason_exists.format(
@@ -76,7 +76,7 @@ def kick_user(
                 m.reply_to_message.from_user.id,
                 m.reply_to_message.from_user.first_name,
             )
-        return lambda: telebot_service.send_message(m.chat.id, text)
+        telebot_service.send_message(m.chat.id, text)
 
 
 def warn_user(
@@ -93,7 +93,7 @@ def warn_user(
         return
     else:
         if res["is_max_warns"]:
-            user = users_service.get_user(m.reply_to_message.from_user.id)
+            user = users_repo.get_user(m.reply_to_message.from_user.id)
             telebot_service.send_message(m.chat.id, view_warn_limit(user))
             poll_service.create_poll(
                 m.chat.id,
