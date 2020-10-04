@@ -149,9 +149,6 @@ class UsersService:
             )
             return {'res': 'ok'}
 
-    def create_user_if_need(self, user_id: int):
-        self.users_repository.get_user_or_insert(user_id)
-
     def get_user(self, id: int) -> models.User:
         return self.users_repository.get_user(id)
 

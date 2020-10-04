@@ -18,7 +18,7 @@ class Greeter:
     def greet_user(self, user_id, bot) -> dict:
         if user_id in self.greeted_users:
             return {'text': messages['greeting']}
-        session = self.form_session()
+        session = self.create_session()
         session.create_member(user_id)
         session.inject_callback_handler(bot, messages['antispam'])
         self.greet_sessions.update({
@@ -30,7 +30,7 @@ class Greeter:
             'reply_markup': session.get_tg_map('0_0')
         }
 
-    def form_session(self) -> World:
+    def create_session(self) -> World:
         session = World()
         session.walk_attention = messages['antispam_too_far']
         session.look_range = 3
@@ -48,6 +48,3 @@ class Greeter:
             random.choice(session.get_visible_tiles('0_0')): 'goat'
         })
         return session
-
-
-greeter = Greeter()
