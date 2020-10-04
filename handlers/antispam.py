@@ -3,8 +3,7 @@ from threading import Thread
 from telebot.types import Message
 
 from bot import bot
-from startup import users_repo
-from services.greeter import greeter
+from startup import users_repo, greeter
 
 
 @bot.message_handler(content_types=['new_chat_members'])

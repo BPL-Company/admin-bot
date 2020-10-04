@@ -18,5 +18,5 @@ class CurtsRepository:
         self.curts.insert_one(deserialized)
     
     def user_curts(self, user_id: int):
-        curts = self.curts.find({"user_id" : {"$eq" : user_id}})
-        return curts
+        curts = self.curts.find({"user_id": {"$eq": user_id}})
+        return curts  # FIXME: deserialization

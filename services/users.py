@@ -102,8 +102,7 @@ class UsersService:
             curtDTO = Curt(
                 curt.user_id, 
                 datetime.datetime.now(), 
-                curt.message_id,
-                curt.reason,
+                curt.poll_state.message.message_id,
                 action
                 )
             self.curts_repository.add_curt(curtDTO)
