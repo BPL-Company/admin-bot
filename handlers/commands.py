@@ -2,10 +2,10 @@ from telebot.types import Message
 
 from .actions import banmute_user, kick_user, warn_user, clear_warns, show_user
 from .validators import validate_usage_of_banmute_command, validate_usage_of_kick_command, \
-    validate_usage_of_warn_command
+    validate_usage_of_warn_command, validate_usage_of_removable_command
 
 from bot import bot
-from startup import users_service
+from startup import users_service, users_repo, telebot_service
 from views import messages
 
 
@@ -85,3 +85,19 @@ def handle_show_me_command(message: Message):
     users_service.create_user_if_need(message.from_user.id)
     
     show_user(message)
+
+
+@bot.message_handler(commands=["unban"], content_types=["text"])
+def handle_unban_command(message: Message):
+    if users_repo.is_user_admin(message.from_user.id):
+        validate_usage_of_removable_command(message)
+
+        telebot_service.unban_user(message.chat.id, message.reply_to_message.from_user.id)
+
+
+@bot.message_handler(commands=["unmute"], content_types=["text"])
+def handle_unban_command(message: Message):
+    if users_repo.is_user_admin(message.from_user.id):
+        validate_usage_of_removable_command(message)
+
+        telebot_service.unmute_user(message.chat.id, message.reply_to_message.from_user.id)

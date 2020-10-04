@@ -27,3 +27,18 @@ class TelebotService:
 
     def answer_callback_query(self, query_id: int, text: str = None):
         self.bot.answer_callback_query(query_id, text)
+
+    def unban_user(self, chat_id: int, user_id: int):
+        self.bot.unban_chat_member(chat_id, user_id)
+
+    def unmute_user(self, chat_id: int, user_id: int):
+        self.bot.restrict_chat_member(
+            chat_id,
+            user_id,
+            None,
+            True,
+            True,
+            True,
+            True,
+            True
+        )

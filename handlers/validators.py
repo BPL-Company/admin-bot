@@ -50,3 +50,11 @@ def validate_usage_of_banmute_command(m: Message) -> typing.Optional[typing.Tupl
         return None
 
     return res[0], res[1], reason
+
+
+def validate_usage_of_removable_command(m: Message) -> bool:
+    if not m.reply_to_message:
+        telebot_service.send_message(m.chat.id, messages["wrong usage of command"])
+        return False
+    else:
+        return True
