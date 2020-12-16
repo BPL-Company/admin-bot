@@ -41,8 +41,3 @@ def handle_curt_buttons(c: types.CallbackQuery):
                 )
     else:
         telebot_service.answer_callback_query(c.id, messages[res['reason']])
-
-
-@bot.callback_query_handler(func=lambda _: True)
-def show_queries(c: types.CallbackQuery):
-    print(f"New query: '{c.data}'")
