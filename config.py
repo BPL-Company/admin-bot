@@ -9,6 +9,6 @@ except ImportError:
 else:
     logging.basicConfig(level=logging.DEBUG)
 
-OWNERS = [792414733, 441399484, 268486177]
-MAX_WARNS = os.environ.get("MAX_WARNS") or 2
-TIME_POLL_WARN = 10  # in seconds
+OWNERS = [792414733, 441399484, 268486177, 1217967168]
+MAX_WARNS = os.environ.get("MAX_WARNS") or 3
+TIME_POLL_WARN = 300 # in seconds
